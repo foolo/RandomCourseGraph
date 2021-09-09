@@ -2,7 +2,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Random course graph</title>
-<!-- <script src="Chart.js"></script> -->
 <script src="https://www.chartjs.org/dist/2.9.3/Chart.min.js"></script>
 <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
 
@@ -10,9 +9,26 @@
 
 <body>
 
-<div style="width:50%;"><canvas id="chartCanvas"></canvas></div>
+This pages shows a randomly generated chart of the price of a fictitious stock.
+The aim is to illustrate that even a totally random graph can display features that may be mistaken for trends (which in the field of technical analysis may be called things like support, resistance and channels).
+
 
 <button onclick="updcb();">Generate new random chart</button>
+
+<div style="width:50%;"><canvas id="chartCanvas"></canvas></div>
+
+The graph is generated with a simple algorithm. In pseudocode:
+<pre>
+NUM_DAYS = 500
+STANDARD_DEVIATION = 0.1
+array = []
+tmpPrice = 100  // initial price
+for i = 0 to NUM_DAYS do
+	randomValue = STANDARD_DEVIATION * randomNormal()
+	tmpPrice *= 2.0 ^ randomValue
+	array.append(tmpPrice)
+end
+</pre>
 
 <script type="text/javascript">
 
@@ -61,17 +77,20 @@ function randomNormal() {
     return Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v );
 }
 
+const log1_01 = Math.log(1.01)
 function updcb() {
-
+	// generate the graph
 	N = 500
 	INITAL_SHARE_PRICE = 100
-	SIGMA = 0.1
-
+	SIGMA = 3
+	const atog = Math.log(1.01)
 	let arr = Array(N).fill(0)
 	currentSharePrice = INITAL_SHARE_PRICE
 	for (let i = 0; i < N; i++) {
-		randomValue = SIGMA * randomNormal()
-		currentSharePrice *= Math.pow(2, randomValue);
+		randomPercentage = SIGMA * randomNormal()
+		// convert percentage so that +X% followed by -X% results in a net zero change
+		arithmeticChange = Math.exp(log1_01 * randomPercentage);
+		currentSharePrice *= arithmeticChange;
 		arr[i] = currentSharePrice
 	}
 
