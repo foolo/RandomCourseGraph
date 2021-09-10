@@ -4,12 +4,18 @@
 <title>Random course graph</title>
 <script src="https://www.chartjs.org/dist/2.9.3/Chart.min.js"></script>
 <script src="rcg.js"></script>
-
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<h1>Random course graph</h1>
+<section class="page-header">
+<h1 class="project-name">Random Course Graph</h1>
+<h2 class="project-tagline">a demonstration of a randomly generated course graph</h2>
+</section>
+
+
+<section class="main-content">
 
 <p>
 This pages shows a randomly generated chart of the price of a fictitious stock.
@@ -17,11 +23,13 @@ The aim is to illustrate that even a totally random graph can display features t
 </p>
 
 <button onclick="updadeChart();">Generate new random chart</button>
-<div style="width:50%;"><canvas id="chartCanvas"></canvas></div>
+<div><canvas id="chartCanvas"></canvas></div>
 <p>The graph is generated with a simple algorithm. In essence:</p>
 <p><i>next value = current value * R()</i></p>
 <p>where <i>R</i> is a function that generates a random number, distributed around 1.0 with a standard deviation of approximately 3%</p>
 <p>See generateGraph() in <a href="rcg.js">rcg.js</a> for more details.</p>
+
+</section>
 
 </body>
 </html>
