@@ -1,19 +1,28 @@
+const N = 500;
+const log1_01 = Math.log(1.01)
+
 function generateGraph() {
-	// generate the graph
-	N = 500
-	INITAL_SHARE_PRICE = 100
-	SIGMA = 3
-	const atog = Math.log(1.01)
+	const INITAL_SHARE_PRICE = 100;
+	const SIGMA = 3;
 	let arr = Array(N).fill(0)
-	currentSharePrice = INITAL_SHARE_PRICE
+	let currentSharePrice = INITAL_SHARE_PRICE;
 	for (let i = 0; i < N; i++) {
-		randomPercentage = SIGMA * randomNormal()
+		let randomPercentage = SIGMA * randomNormal()
 		// convert percentage so that +X% followed by -X% results in a net zero change
-		arithmeticChange = Math.exp(log1_01 * randomPercentage);
+		let arithmeticChange = Math.exp(log1_01 * randomPercentage);
 		currentSharePrice *= arithmeticChange;
 		arr[i] = currentSharePrice
 	}
     return arr;
+}
+
+// https://stackoverflow.com/a/36481059/961254
+// Standard Normal variate using Box-Muller transform.
+function randomNormal() {
+    var u = 0, v = 0;
+    while(u === 0) u = Math.random(); //Converting [0,1) to (0,1)
+    while(v === 0) v = Math.random();
+    return Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v );
 }
 
 function dataset(label, color, data) {
@@ -52,18 +61,8 @@ window.onload = function() {
 	updadeChart();
 };
 
-// https://stackoverflow.com/a/36481059/961254
-// Standard Normal variate using Box-Muller transform.
-function randomNormal() {
-    var u = 0, v = 0;
-    while(u === 0) u = Math.random(); //Converting [0,1) to (0,1)
-    while(v === 0) v = Math.random();
-    return Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v );
-}
-
-const log1_01 = Math.log(1.01)
 function updadeChart() {
-    arr = generateGraph()
+    let arr = generateGraph();
 
 	// show table
 	if (window.myChart == null) {
