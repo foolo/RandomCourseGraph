@@ -19,20 +19,9 @@ The aim is to illustrate that even a totally random graph can display features t
 <button onclick="updadeChart();">Generate new random chart</button>
 <div style="width:50%;"><canvas id="chartCanvas"></canvas></div>
 <p>The graph is generated with a simple algorithm. In essence:</p>
-<p><i>new value = (prevous day's value) * R</i></p>
-<p>where R is a random constant, distributed around 1.0</p>
-
-<pre>
-NUM_DAYS = 500
-STANDARD_DEVIATION = 0.1
-array = []
-tmpPrice = 100  // initial price
-for i = 0 to NUM_DAYS do
-	randomValue = STANDARD_DEVIATION * randomNormal()
-	tmpPrice *= 2.0 ^ randomValue
-	array.append(tmpPrice)
-end
-</pre>
+<p><i>next value = current value * R()</i></p>
+<p>where <i>R</i> is a function that generates a random number, distributed around 1.0 with a standard deviation of approximately 3%</p>
+<p>See generateGraph() in <a href="rcg.js">rcg.js</a> for more details.</p>
 
 </body>
 </html>
