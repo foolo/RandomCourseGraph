@@ -1,3 +1,20 @@
+function generateGraph() {
+	// generate the graph
+	N = 500
+	INITAL_SHARE_PRICE = 100
+	SIGMA = 3
+	const atog = Math.log(1.01)
+	let arr = Array(N).fill(0)
+	currentSharePrice = INITAL_SHARE_PRICE
+	for (let i = 0; i < N; i++) {
+		randomPercentage = SIGMA * randomNormal()
+		// convert percentage so that +X% followed by -X% results in a net zero change
+		arithmeticChange = Math.exp(log1_01 * randomPercentage);
+		currentSharePrice *= arithmeticChange;
+		arr[i] = currentSharePrice
+	}
+    return arr;
+}
 
 function dataset(label, color, data) {
 	return {
@@ -32,7 +49,7 @@ function initChart(x_size) {
 }
 
 window.onload = function() {
-	updcb();
+	updadeChart();
 };
 
 // https://stackoverflow.com/a/36481059/961254
@@ -45,21 +62,8 @@ function randomNormal() {
 }
 
 const log1_01 = Math.log(1.01)
-function updcb() {
-	// generate the graph
-	N = 500
-	INITAL_SHARE_PRICE = 100
-	SIGMA = 3
-	const atog = Math.log(1.01)
-	let arr = Array(N).fill(0)
-	currentSharePrice = INITAL_SHARE_PRICE
-	for (let i = 0; i < N; i++) {
-		randomPercentage = SIGMA * randomNormal()
-		// convert percentage so that +X% followed by -X% results in a net zero change
-		arithmeticChange = Math.exp(log1_01 * randomPercentage);
-		currentSharePrice *= arithmeticChange;
-		arr[i] = currentSharePrice
-	}
+function updadeChart() {
+    arr = generateGraph()
 
 	// show table
 	if (window.myChart == null) {

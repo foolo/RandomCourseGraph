@@ -10,15 +10,19 @@
 
 <body>
 
+<h1>Random course graph</h1>
+
+<p>
 This pages shows a randomly generated chart of the price of a fictitious stock.
 The aim is to illustrate that even a totally random graph can display features that may be mistaken for trends (which in the field of technical analysis may be called things like support, resistance and channels).
+</p>
 
-
-<button onclick="updcb();">Generate new random chart</button>
-
+<button onclick="updadeChart();">Generate new random chart</button>
 <div style="width:50%;"><canvas id="chartCanvas"></canvas></div>
+<p>The graph is generated with a simple algorithm. In essence:</p>
+<p><i>new value = (prevous day's value) * R</i></p>
+<p>where R is a random constant, distributed around 1.0</p>
 
-The graph is generated with a simple algorithm. In pseudocode:
 <pre>
 NUM_DAYS = 500
 STANDARD_DEVIATION = 0.1
